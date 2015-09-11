@@ -21,8 +21,14 @@ namespace Operaciones
         string Multiplicacion(int value, int value2);
         [OperationContract]
         string Division(float value, float value2);
-
-        
+        [OperationContract]
+        Usuario Consultarusuarios(string nombre);
+        [OperationContract]
+        Boolean Agregarusuarios(string nombre,string pass);
+        [OperationContract]
+        Boolean Eliminarusuarios(string nombre);
+        [OperationContract]
+        Boolean Modificarusuarios(string nombre,string pass);
 
         // TODO: agregue aquí sus operaciones de servicio
     }
