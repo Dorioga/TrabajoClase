@@ -15,44 +15,19 @@ namespace Operaciones
     {
         Model1Container12 db = new Model1Container12();
 
-        public string Suma(int value, int value2)
+
+        public List<Usuario> Consultarusuarios()
         {
-            return (value + value2).ToString();
+            return db.UsuarioConjunto.ToList();
         }
 
-        public string Resta(int value, int value2)
-        {
-            return (value - value2).ToString();
-        }
-
-        public string Multiplicacion(int value, int value2)
-        {
-            return (value * value2).ToString();
-        }
-
-        public string Division(float value, float value2)
-        {
-            if(value2 !=0){
-                return (value / value2).ToString();
-            }
-            else
-            {
-                return ("Indefinida");
-            }
-                    }
-
-
-
-        public Usuario Consultarusuarios(string nombre)
+        public Usuario Consultarusuario(string nombre)
         {
             var usuariocon = db.UsuarioConjunto.Where(usuario => usuario.Login == nombre).First();
             return usuariocon;
         }
 
-
-
-
-        public bool Agregarusuarios(string nombre, string pass)
+        public string Agregarusuarios(string nombre, string pass)
         {
             try
             {
@@ -63,45 +38,48 @@ namespace Operaciones
                 };
                 db.UsuarioConjunto.Add(nuevo);
                 db.SaveChanges();
-                return true;
+                return ("Datos ingresados correctamente");
             }
             catch (Exception ex)
             {
-                return false;
+                return ("Datos no ingresados error: "+ex);
             }
         }
 
-        public bool Eliminarusuarios(string nombre)
+        public string Eliminarusuarios(string nombre)
         {
             try
             {
-                db.UsuarioConjunto.Remove(Consultarusuarios(nombre));
+                db.UsuarioConjunto.Remove(Consultarusuario(nombre));
                 db.SaveChanges();
-                return true;
+                return ("Datos ingresados correctamente");
             }
             catch (Exception e)
             {
-                return false;
+                return ("Datos no ingresados error: " + e);
             }
         }
 
-        public bool Modificarusuarios(string nombre,string pass)
+
+
+
+        public string Modificarusuarios(string nombre, string nomarr, string passarr)
         {
             try
             {
                 var consulta = db.UsuarioConjunto.Where(Usuario => Usuario.Login.StartsWith(nombre));
                 foreach (var Usuario in consulta)
                 {
-                    Usuario.Login = Usuario.Login.Replace(Usuario.Login, nombre);
-                    Usuario.Pass = Usuario.Pass.Replace(Usuario.Pass, pass);
+                    Usuario.Login = Usuario.Login.Replace(Usuario.Login,nomarr);
+                    Usuario.Pass = Usuario.Pass.Replace(Usuario.Pass,passarr);
                 }
                 db.SaveChanges();
 
-                return true;
+                return ("Datos Modificados Correctamente");
             }
             catch (Exception e)
             {
-                return false;
+                return ("Error: "+e);
             }
         }
     }

@@ -13,22 +13,27 @@ namespace Operaciones
     public interface IService1
     {
 
+ 
+
         [OperationContract]
-        string Suma(int value, int value2);
+        [WebInvoke(Method = "GET", UriTemplate = "mostrarusuarios", ResponseFormat = WebMessageFormat.Json)]
+        List<Usuario> Consultarusuarios();
+
         [OperationContract]
-        string Resta(int value,int value2);
+        [WebInvoke(Method = "GET", UriTemplate = "mostrarusuario/{nombre}", ResponseFormat = WebMessageFormat.Json)]
+        Usuario Consultarusuario(string nombre);
+            
         [OperationContract]
-        string Multiplicacion(int value, int value2);
+        [WebInvoke(Method = "GET", UriTemplate = "agregarusuarios/{nombre}/{pass}", ResponseFormat = WebMessageFormat.Json)]
+        string Agregarusuarios(string nombre,string pass);
+
         [OperationContract]
-        string Division(float value, float value2);
+        [WebInvoke(Method = "GET", UriTemplate = "eliminarusuarios/{nombre}", ResponseFormat = WebMessageFormat.Json)]
+        string Eliminarusuarios(string nombre);
+
         [OperationContract]
-        Usuario Consultarusuarios(string nombre);
-        [OperationContract]
-        Boolean Agregarusuarios(string nombre,string pass);
-        [OperationContract]
-        Boolean Eliminarusuarios(string nombre);
-        [OperationContract]
-        Boolean Modificarusuarios(string nombre,string pass);
+        [WebInvoke(Method = "GET", UriTemplate = "modificarusuarios/{nombre}/{nomarr}/{passarr}", ResponseFormat = WebMessageFormat.Json)]
+        string Modificarusuarios(string nombre,string nomarr,string passarr);
 
         // TODO: agregue aquí sus operaciones de servicio
     }
